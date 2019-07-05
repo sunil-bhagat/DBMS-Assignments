@@ -1,0 +1,19 @@
+1) Find out the PG-13 rated comedy movies. DO NOT use the film_list table
+
+ => select film.title from  (film join film_category on film.film_id = film_category.film_id)join category on film_category.category_id = category.category_id where category.name = 'comedy' AND film.rating = 'PG-13';
+
+2) Find out the top 3 rented horror movies.
+
+ => SELECT  title, count(rental.inventory_id)  from rental join inventory on rental.inventory_id = inventory.inventory_id join film_list on inventory.film_id = film_list.FID where category = 'horror' group by title order by count(rental.inventory_id) desc limit 3;
+
+3) Find out the list of customers from India who have rented sports movies.
+
+ => select distinct name from customer_list join rental on customer_list.ID = rental.customer_id join inventory on rental.inventory_id = inventory.inventory_id join film_list on film_list.FID = inventory.film_id where category = "sports" and country = 'india';
+
+4)Find out the list of customers from Canada who have rented “NICK WAHLBERG” movies.
+
+ => select  distinct name from inventory join rental on inventory.inventory_id = rental.inventory_id join customer_list on rental.customer_id = customer_list.ID join film_actor on inventory.film_id = film_actor.film_id join actor on film_actor.actor_id = actor.actor_id where country = 'canada' and actor.first_name = 'NICK' and actor.last_name = 'WAHLBERG';
+
+5) Find out the number of movies in which “SEAN WILLIAMS” acted.
+
+ => select distinct count(*) from film_actor join actor on film_actor.actor_id = actor.actor_id where actor.first_name = 'SEAN' and actor.last_name = 'WILLIAMS';
